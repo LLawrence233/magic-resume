@@ -10,6 +10,8 @@
     "copy": "复制",
     "cancel": "取消",
     "confirm": "确认",
+    "back": "返回",
+    "clear": "清除",
     "deleteSuccess": "删除成功",
     "deleteModuleConfirm": "确定要删除此模块吗？此操作无法撤销。",
     "configured": "已配置",
@@ -188,6 +190,12 @@
         "currentModel": "当前使用的模型",
         "selectModel": "选择模型",
         "getApiKey": "获取 API Key",
+        "testConnection": {
+          "button": "测试连接",
+          "testing": "测试中...",
+          "success": "连接成功",
+          "failed": "连接失败"
+        },
         "doubao": {
           "title": "豆包",
           "description": "在火山引擎获取 API 密钥",
@@ -210,7 +218,15 @@
           "title": "Gemini",
           "description": "支持润色、语法检查和 PDF 图片识别导入。推荐模型 ID：gemini-flash-latest",
           "apiKey": "Gemini API Key",
-          "modelId": "Gemini 模型 ID"
+          "modelId": "Gemini 模型 ID",
+          "requiredTitle": "需要配置 Gemini",
+          "requiredDescription": "PDF 导入功能需要使用 Gemini 的多模态能力来识别简历内容。请先配置 Gemini API Key 和模型 ID。"
+        },
+        "zhipu": {
+          "title": "智谱 GLM",
+          "description": "在智谱 AI 开放平台获取 API 密钥。推荐模型 ID：glm-4-flash",
+          "apiKey": "API Key",
+          "modelId": "模型 ID"
         }
       }
     },
@@ -781,6 +797,46 @@
     "apply_error": "未找到对应文本，无法自动修改",
     "no_errors_title": "太棒了！",
     "no_errors_desc": "文档非常完美，没有发现任何错别字或标点错误。"
+  },
+  "optimizeSuggestion": {
+    "title": "AI 优化建议",
+    "description": "AI 将分析您的简历内容，提供专业的优化建议",
+    "hint": "点击下方按钮，AI 将全面分析您的简历，从内容完整性、描述方式、成果量化等多个维度给出专业建议",
+    "analyze": "开始分析",
+    "analyzing": "AI 正在分析您的简历...",
+    "analyzingHint": "这可能需要几秒钟，请耐心等待",
+    "retry": "重试",
+    "scoreLabel": "综合评分",
+    "scoreChange": "较上次变化 {change} 分",
+    "strengths": "简历亮点",
+    "suggestions": "优化建议",
+    "example": "修改示例",
+    "reAnalyze": "重新分析",
+    "viewHistory": "历史记录",
+    "history": "分析历史",
+    "scoreLevel": {
+      "excellent": "优秀",
+      "good": "良好",
+      "needsWork": "待改进"
+    },
+    "priority": {
+      "high": "高优先",
+      "medium": "中优先",
+      "low": "低优先"
+    },
+    "category": {
+      "basic": "基本信息",
+      "education": "教育经历",
+      "experience": "工作经历",
+      "project": "项目经历",
+      "skills": "技能特长",
+      "evaluation": "自我评价",
+      "overall": "整体优化"
+    },
+    "error": {
+      "noApiKey": "请先在 AI 服务商设置中配置 API Key",
+      "unknown": "分析失败，请稍后重试"
+    }
   },
   "faqDialog": {
     "title": "常见问题 (FAQ)",

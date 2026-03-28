@@ -47,6 +47,7 @@ export const ResumeWorkbench = () => {
     const {
         geminiApiKey,
         geminiModelId,
+        setRequireGeminiConfig,
     } = useAIConfigStore();
     const router = useRouter();
     const [hasConfiguredFolder, setHasConfiguredFolder] = useState(false);
@@ -204,7 +205,8 @@ export const ResumeWorkbench = () => {
 
     const importResumeFromPdf = async (file: File) => {
         if (!geminiApiKey || !geminiModelId) {
-            toast.error(t("dashboard.resumes.importDialog.geminiConfigRequired"));
+            setIsImportDialogOpen(false);
+            setRequireGeminiConfig(true);
             router.push("/app/dashboard/ai");
             return;
         }

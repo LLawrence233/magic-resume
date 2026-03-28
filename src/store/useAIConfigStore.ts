@@ -13,6 +13,9 @@ interface AIConfigState {
   openaiApiEndpoint: string;
   geminiApiKey: string;
   geminiModelId: string;
+  zhipuApiKey: string;
+  zhipuModelId: string;
+  requireGeminiConfig: boolean;
   setSelectedModel: (model: AIModelType) => void;
   setDoubaoApiKey: (apiKey: string) => void;
   setDoubaoModelId: (modelId: string) => void;
@@ -23,6 +26,9 @@ interface AIConfigState {
   setOpenaiApiEndpoint: (endpoint: string) => void;
   setGeminiApiKey: (apiKey: string) => void;
   setGeminiModelId: (modelId: string) => void;
+  setZhipuApiKey: (apiKey: string) => void;
+  setZhipuModelId: (modelId: string) => void;
+  setRequireGeminiConfig: (require: boolean) => void;
   isConfigured: () => boolean;
 }
 
@@ -39,6 +45,9 @@ export const useAIConfigStore = create<AIConfigState>()(
       openaiApiEndpoint: "",
       geminiApiKey: "",
       geminiModelId: "gemini-flash-latest",
+      zhipuApiKey: "",
+      zhipuModelId: "glm-4-flash",
+      requireGeminiConfig: false,
       setSelectedModel: (model: AIModelType) => set({ selectedModel: model }),
       setDoubaoApiKey: (apiKey: string) => set({ doubaoApiKey: apiKey }),
       setDoubaoModelId: (modelId: string) => set({ doubaoModelId: modelId }),
@@ -49,6 +58,9 @@ export const useAIConfigStore = create<AIConfigState>()(
       setOpenaiApiEndpoint: (endpoint: string) => set({ openaiApiEndpoint: endpoint }),
       setGeminiApiKey: (apiKey: string) => set({ geminiApiKey: apiKey }),
       setGeminiModelId: (modelId: string) => set({ geminiModelId: modelId }),
+      setZhipuApiKey: (apiKey: string) => set({ zhipuApiKey: apiKey }),
+      setZhipuModelId: (modelId: string) => set({ zhipuModelId: modelId }),
+      setRequireGeminiConfig: (require: boolean) => set({ requireGeminiConfig: require }),
       isConfigured: () => {
         const state = get();
         const config = AI_MODEL_CONFIGS[state.selectedModel];

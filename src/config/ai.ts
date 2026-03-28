@@ -1,4 +1,4 @@
-export type AIModelType = "doubao" | "deepseek" | "openai" | "gemini";
+export type AIModelType = "doubao" | "deepseek" | "openai" | "gemini" | "zhipu";
 
 export interface AIValidationContext {
   doubaoApiKey?: string;
@@ -10,6 +10,8 @@ export interface AIValidationContext {
   openaiApiEndpoint?: string;
   geminiApiKey?: string;
   geminiModelId?: string;
+  zhipuApiKey?: string;
+  zhipuModelId?: string;
 }
 
 export interface AIModelConfig {
@@ -57,5 +59,15 @@ export const AI_MODEL_CONFIGS: Record<AIModelType, AIModelConfig> = {
       "x-goog-api-key": apiKey,
     }),
     validate: (context: AIValidationContext) => !!(context.geminiApiKey && context.geminiModelId),
+  },
+  zhipu: {
+    url: () => "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+    requiresModelId: true,
+    defaultModel: "glm-4-flash",
+    headers: (apiKey: string) => ({
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    }),
+    validate: (context: AIValidationContext) => !!(context.zhipuApiKey && context.zhipuModelId),
   },
 };

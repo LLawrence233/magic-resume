@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "@/i18n/compat/client";
-import { AlertCircle, ShieldCheck, ShieldAlert } from "lucide-react";
+import { AlertCircle, ShieldCheck, ShieldAlert, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRouter } from "@/lib/navigation";
 import { Input } from "@/components/ui/input";
@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { GrammarCheckDrawer } from "./grammar/GrammarCheckDrawer";
+import { AIOptimizeSuggestionDialog } from "../shared/ai/AIOptimizeSuggestionDialog";
 import { getFileHandle, getConfig } from "@/utils/fileSystem";
 
 interface EditorHeaderProps {
@@ -42,6 +43,7 @@ export function EditorHeader({ isMobile }: EditorHeaderProps) {
 
   const [backupConfigured, setBackupConfigured] = useState<boolean | null>(null);
   const [backupPath, setBackupPath] = useState<string>("");
+  const [showAIOptimize, setShowAIOptimize] = useState(false);
 
   useEffect(() => {
     const checkBackup = async () => {
@@ -133,6 +135,25 @@ export function EditorHeader({ isMobile }: EditorHeaderProps) {
         </div>
 
         <div className="flex items-center space-x-3">
+          {/* AI 优化建议按钮 */}
+          <TooltipProvider delayDuration={100}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setShowAIOptimize(true)}
+                  className="h-9 w-9 text-primary hover:bg-primary/10"
+                >
+                  <Sparkles className="h-4 w-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">
+                {t("optimizeSuggestion.title")}
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
           <GrammarCheckDrawer />
           {errors.length > 0 && (
              <div 
@@ -161,6 +182,13 @@ export function EditorHeader({ isMobile }: EditorHeaderProps) {
           </div>
         </div>
       </div>
+
+      {/* AI 优化建议对话框 */}
+      <AIOptimizeSuggestionDialog
+        open={showAIOptimize}
+        onOpenChange={setShowAIOptimize}
+        resumeData={activeResume || {}}
+      />
     </motion.header>
   );
 }

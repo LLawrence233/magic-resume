@@ -10,6 +10,8 @@
     "copy": "Copy",
     "cancel": "Cancel",
     "confirm": "Confirm",
+    "back": "Back",
+    "clear": "Clear",
     "deleteSuccess": "Deleted successfully",
     "deleteModuleConfirm": "Are you sure you want to delete this module? This action cannot be undone.",
     "configured": "Configured",
@@ -187,6 +189,12 @@
         "currentModel": "Current Model",
         "selectModel": "Select Model",
         "getApiKey": "Get API Key",
+        "testConnection": {
+          "button": "Test Connection",
+          "testing": "Testing...",
+          "success": "Connection Successful",
+          "failed": "Connection Failed"
+        },
         "doubao": {
           "title": "Doubao",
           "description": "Get API key from Volcengine",
@@ -209,7 +217,15 @@
           "title": "Gemini",
           "description": "Supports polish, grammar check, and PDF image resume import. Recommended model: gemini-flash-latest",
           "apiKey": "Gemini API Key",
-          "modelId": "Gemini Model ID"
+          "modelId": "Gemini Model ID",
+          "requiredTitle": "Gemini Configuration Required",
+          "requiredDescription": "PDF import requires Gemini's multimodal capabilities to recognize resume content. Please configure Gemini API Key and Model ID first."
+        },
+        "zhipu": {
+          "title": "Zhipu GLM",
+          "description": "Get API key from Zhipu AI Platform. Recommended model: glm-4-flash",
+          "apiKey": "API Key",
+          "modelId": "Model ID"
         }
       }
     },
@@ -779,6 +795,46 @@
     "apply_error": "Text not found, cannot apply automatically",
     "no_errors_title": "Perfect!",
     "no_errors_desc": "No grammar or punctuation errors found."
+  },
+  "optimizeSuggestion": {
+    "title": "AI Optimization Suggestions",
+    "description": "AI will analyze your resume content and provide professional optimization suggestions",
+    "hint": "Click the button below to have AI comprehensively analyze your resume from multiple dimensions including content completeness, description style, and result quantification",
+    "analyze": "Start Analysis",
+    "analyzing": "AI is analyzing your resume...",
+    "analyzingHint": "This may take a few seconds, please wait",
+    "retry": "Retry",
+    "scoreLabel": "Overall Score",
+    "scoreChange": "Changed by {change} points from last time",
+    "strengths": "Resume Highlights",
+    "suggestions": "Optimization Suggestions",
+    "example": "Example",
+    "reAnalyze": "Re-Analyze",
+    "viewHistory": "History",
+    "history": "Analysis History",
+    "scoreLevel": {
+      "excellent": "Excellent",
+      "good": "Good",
+      "needsWork": "Needs Work"
+    },
+    "priority": {
+      "high": "High Priority",
+      "medium": "Medium Priority",
+      "low": "Low Priority"
+    },
+    "category": {
+      "basic": "Basic Info",
+      "education": "Education",
+      "experience": "Work Experience",
+      "project": "Projects",
+      "skills": "Skills",
+      "evaluation": "Self Evaluation",
+      "overall": "Overall"
+    },
+    "error": {
+      "noApiKey": "Please configure API Key in AI Provider settings first",
+      "unknown": "Analysis failed, please try again later"
+    }
   },
   "faqDialog": {
     "title": "Frequently Asked Questions (FAQ)",

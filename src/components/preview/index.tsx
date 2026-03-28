@@ -231,7 +231,7 @@ const PreviewPanel = React.forwardRef<HTMLDivElement, PreviewPanelProps>(
               }}
               className="relative"
             >
-              <style jsx global>{`
+              <style>{`
               .grammar-error {
                 cursor: help;
                 border-bottom: 2px dashed;

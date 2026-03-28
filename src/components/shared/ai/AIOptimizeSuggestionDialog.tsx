@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles,
   AlertCircle,
   ChevronDown,
-  ChevronUp,
   Loader2,
   User,
   GraduationCap,
@@ -20,9 +19,6 @@ import {
   Lightbulb,
   Target,
   Award,
-  ArrowUp,
-  ArrowDown,
-  Minus,
   History,
   Trash2,
 } from "lucide-react";
@@ -34,12 +30,6 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "@/i18n/compat/client";
@@ -164,14 +154,6 @@ export const AIOptimizeSuggestionDialog = ({
     setHistory([]);
     localStorage.removeItem(HISTORY_STORAGE_KEY);
   };
-
-  // 计算分数变化
-  const scoreChange = useMemo(() => {
-    if (!result || history.length === 0) return null;
-    const lastScore = history[0]?.score;
-    if (lastScore === undefined) return null;
-    return result.score - lastScore;
-  }, [result, history]);
 
   const handleAnalyze = async () => {
     setIsLoading(true);
@@ -368,7 +350,7 @@ export const AIOptimizeSuggestionDialog = ({
                           {record.score}分
                         </Badge>
                       </div>
-                      <p className="text-sm mt-1 line-clamp-1">{record.result.summary}</p>
+                      <p className="text-sm mt-1">{record.result.summary}</p>
                     </div>
                   ))}
                 </div>
@@ -482,32 +464,6 @@ export const AIOptimizeSuggestionDialog = ({
                         <Badge className={cn("bg-gradient-to-r text-white border-0", getScoreConfig(result.score).gradient)}>
                           {getScoreConfig(result.score).label}
                         </Badge>
-                        {scoreChange !== null && (
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <motion.div
-                                  initial={{ scale: 0 }}
-                                  animate={{ scale: 1 }}
-                                  className={cn(
-                                    "flex items-center gap-0.5 text-xs font-medium px-1.5 py-0.5 rounded-full",
-                                    scoreChange > 0 ? "bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400" :
-                                    scoreChange < 0 ? "bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400" :
-                                    "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400"
-                                  )}
-                                >
-                                  {scoreChange > 0 ? <ArrowUp className="h-3 w-3" /> :
-                                   scoreChange < 0 ? <ArrowDown className="h-3 w-3" /> :
-                                   <Minus className="h-3 w-3" />}
-                                  {Math.abs(scoreChange)}
-                                </motion.div>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                {t("optimizeSuggestion.scoreChange", { change: scoreChange > 0 ? `+${scoreChange}` : scoreChange })}
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-                        )}
                       </div>
                       <p className="text-sm text-muted-foreground leading-relaxed">
                         {result.summary}
@@ -599,7 +555,7 @@ export const AIOptimizeSuggestionDialog = ({
                                     {t(`optimizeSuggestion.${priority.labelKey}`)}
                                   </Badge>
                                 </div>
-                                <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                                <p className="text-xs text-muted-foreground leading-relaxed">
                                   {suggestion.description}
                                 </p>
                               </div>
@@ -655,7 +611,10 @@ export const AIOptimizeSuggestionDialog = ({
                   {history.length > 0 && (
                     <Button
                       variant="ghost"
-                      onClick={() => setShowHistory(true)}
+                      onClick={() => {
+                        setResult(null);
+                        setShowHistory(true);
+                      }}
                     >
                       <History className="h-4 w-4" />
                     </Button>

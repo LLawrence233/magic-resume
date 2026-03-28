@@ -5,6 +5,7 @@ const config = {
       // 配置选项
       allowDuplicates: false // 不允许重复导入
     },
+    "tailwindcss/nesting": {},
     tailwindcss: {}
   }
 };

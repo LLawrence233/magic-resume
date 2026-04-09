@@ -116,11 +116,18 @@ export default function AIPolishDialog({
       });
 
       if (!response.ok) {
-        throw new Error("Failed to polish content");
+        let errorDetail = `HTTP ${response.status}`;
+        try {
+          const errorJson = await response.json();
+          errorDetail = errorJson.detail || errorJson.error || errorDetail;
+        } catch {
+          // 无法解析 JSON
+        }
+        throw new Error(errorDetail);
       }
 
       if (!response.body) {
-        throw new Error("No response body");
+        throw new Error("API 未返回响应体");
       }
 
       const reader = response.body.getReader();
@@ -133,6 +140,14 @@ export default function AIPolishDialog({
         const chunk = decoder.decode(value);
         setPolishedContent((prev) => prev + chunk);
       }
+
+      // 流结束后检查是否以错误信息开头
+      setPolishedContent((prev) => {
+        if (prev.startsWith("\n[错误]")) {
+          toast.error(prev.substring(8, 200));
+        }
+        return prev;
+      });
     } catch (error) {
       if (error instanceof Error && error.name === "AbortError") {
         console.log("Polish aborted");
